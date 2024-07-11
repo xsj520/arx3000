@@ -12,6 +12,9 @@
 
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+##-----------------update golang for alist------------------
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang
 rm -rf feeds/luci/applications/luci-app-alist
 rm -rf feeds/packages/net/alist
 rm -rf feeds/packages/net/open-app-filter
