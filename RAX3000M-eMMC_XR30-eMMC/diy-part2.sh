@@ -11,7 +11,7 @@
 #
 
 # Modify default IP
-#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.100/g' package/base-files/files/bin/config_generate
 ##-----------------Add OpenClash dev core------------------
 curl -sL -m 30 --retry 2 https://raw.githubusercontent.com/vernesong/OpenClash/core/master/dev/clash-linux-arm64.tar.gz -o /tmp/clash.tar.gz
 tar zxvf /tmp/clash.tar.gz -C /tmp >/dev/null 2>&1
@@ -23,3 +23,8 @@ rm -rf /tmp/clash.tar.gz >/dev/null 2>&1
 sed -i '/myddns_ipv4/,$d' feeds/packages/net/ddns-scripts/files/etc/config/ddns
 ##-----------------Manually set CPU frequency for MT7981B-----------------
 sed -i '/"mediatek"\/\*|\"mvebu"\/\*/{n; s/.*/\tcpu_freq="1.3GHz" ;;/}' package/emortal/autocore/files/generic/cpuinfo
+# 修改插件名字
+sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
+sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
+sed -i 's/"iStore"/"  iS  商店"/g' `grep "iStore" -rl ./`
+sed -i 's/"Docker"/"容器"/g' `grep "Docker" -rl ./`
