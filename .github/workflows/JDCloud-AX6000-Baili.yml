@@ -124,25 +124,21 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
-    - name: 加载feeds.conf.default & DIY_P1_SH
+    - name: 复制feeds.conf.default & 运行DIY_P1_SH & 更新feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-        
-    - name: 更新 & 安装 feeds
-      run: |
-        cd openwrt
         ./scripts/feeds update -a
-        ./scripts/feeds install -a
         
-    - name: 加载config & DIY_P2_SH
+    - name: 复制config & 运行DIY_P2_SH & 安装feeds
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        ./scripts/feeds install -a
         
     - name: 使用原厂MAC地址顺序
       if: github.event.inputs.MAC_ORDER == 'true'
