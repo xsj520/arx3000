@@ -23,3 +23,7 @@ rm -rf /tmp/clash.tar.gz >/dev/null 2>&1
 sed -i '/myddns_ipv4/,$d' feeds/packages/net/ddns-scripts/files/etc/config/ddns
 ##-----------------Manually set CPU frequency for MT7981B-----------------
 sed -i '/"mediatek"\/\*|\"mvebu"\/\*/{n; s/.*/\tcpu_freq="1.3GHz" ;;/}' package/emortal/autocore/files/generic/cpuinfo
+# 修改插件名字
+sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
+sed -i 's/"iStore"/"商店"/g' `grep "iStore" -rl ./`
+sed -i 's/"Docker"/"容器"/g' `grep "Docker" -rl ./`
